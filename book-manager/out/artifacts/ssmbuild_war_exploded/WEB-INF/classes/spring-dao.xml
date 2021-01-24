@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--1. 連接db configuration file-->
+    <context:property-placeholder location="classpath:database.properties"/>
+
+    <!--2. connection pool，例子如下
+        dbcp; 半自動化操作，不能自動連接
+        c3p0; 自動化操作，自動化加載configuration file，並自動設置
+        druid;
+        hikari;
+    -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+
+        <property name="maxPoolSize" value="30" />    <!--最大連接數30-->
+        <property name="minPoolSize" value="10" />    <!--最小連接數10-->
+        <property name="autoCommitOnClose" value="false"/>      <!--斷開連接不自動commit-->
+        <property name="checkoutTimeout" value="10000"/>        <!--獲取超時時間-->
+        <property name="acquireRetryAttempts" value="2"/>       <!--失敗時嘗試連接的次數-->
+
+    </bean>
+
+    <!--3. sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--綁定Mybatis configuration-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!-- 動態dao掃描，動態實現dao注入Spring-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--掃描-->
+        <property name="basePackage" value="com.test.dao"/>
+    </bean>
+
+</beans>
