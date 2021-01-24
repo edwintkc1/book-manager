@@ -2,19 +2,19 @@
 credit: kuangstudy.com  
 
 configuration:   
-  Tomcat 9.0.24  
+- Tomcat 9.0.24  
   
-  maven  3.6.1  
+- maven  3.6.1  
   
-  mysql  5.7.19  
+- mysql  5.7.19  
   
-  IDEA   2020.3.1  
+- IDEA   2020.3.1  
     
 v1.0:  
-  add    book  
+ - add    book  
   
-  update book  
+ - update book  
   
-  search book  
+ - search book  
   
-  delete book  
+ - delete book  
