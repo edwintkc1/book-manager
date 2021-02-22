@@ -10,13 +10,13 @@
        http://www.springframework.org/schema/context
        https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--1.annotation驅動-->
+    <!--1. 開啟annotation-->
     <mvc:annotation-driven/>
-    <!--2.靜態資源過濾-->
+    <!--2. 靜態資源過濾-->
     <mvc:default-servlet-handler/>
-    <!--3.掃描包: controller-->
+    <!--3. scan controller-->
     <context:component-scan base-package="com.test.controller"/>
-    <!--4.視圖解析器-->
+    <!--4. view resolver-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>

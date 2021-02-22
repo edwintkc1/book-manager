@@ -6,15 +6,15 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <!--1.掃描service下嘅file-->
+    <!--1. scan service-->
     <context:component-scan base-package="com.test.service"/>
 
-    <!--2.將所有業務class，注入到Spring，可以通過configuration/ annotation實現-->
+    <!--2. 將所有service implementation，注入到Spring-->
     <bean id="BookServiceImpl"  class="com.test.service.BookServiceImpl">
         <property name="bookMapper" ref="bookMapper"/>
     </bean>
 
-    <!--3.聲明式事務配置-->
+    <!--3. declarative transaction-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!--注入data source-->
         <property name="dataSource" ref="dataSource"/>

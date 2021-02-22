@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/context
        https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--1. 連接db configuration file-->
+    <!--1. 加入db configuration file-->
     <context:property-placeholder location="classpath:database.properties"/>
 
     <!--2. connection pool，例子如下
@@ -38,7 +38,10 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
-    <!-- 動態dao掃描，動態實現dao注入Spring-->
+    <!-- 動態dao掃描，動態實現dao注入Spring
+         之前需要手動寫BookMapperImpl, 然後再註冊成bean
+         如果用呢個就會自動scan，並且 -> bean
+    -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--注入-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
